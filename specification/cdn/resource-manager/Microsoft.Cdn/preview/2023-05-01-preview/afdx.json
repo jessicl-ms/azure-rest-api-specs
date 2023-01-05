@@ -3461,76 +3461,6 @@
           "final-state-via": "azure-async-operation"
         }
       },
-      "patch": {
-        "tags": [
-          "KeyGroups"
-        ],
-        "description": "Updates an existing key group within profile",
-        "operationId": "KeyGroups_Update",
-        "x-ms-examples": {
-          "AFDKeyGroups_Update": {
-            "$ref": "./examples/AFDKeyGroups_Update.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceGroupNameParameter"
-          },
-          {
-            "name": "profileName",
-            "in": "path",
-            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource group.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "keyGroupName",
-            "in": "path",
-            "description": "Name of the key group under the profile which is unique globally",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "keyGroupUpdateProperties",
-            "in": "body",
-            "description": "The KeyGroup properties.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/KeyGroup"
-            }
-          },
-          {
-            "$ref": "#/parameters/subscriptionIdParameter"
-          },
-          {
-            "$ref": "#/parameters/apiVersionParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/KeyGroup"
-            }
-          },
-          "202": {
-            "description": "Accepted",
-            "schema": {
-              "$ref": "#/definitions/KeyGroup"
-            }
-          },
-          "default": {
-            "description": "CDN error response describing why the operation failed.",
-            "schema": {
-              "$ref": "#/definitions/AfdErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        }
-      },
       "delete": {
         "tags": [
           "KeyGroups"
@@ -4414,7 +4344,7 @@
       }
     },
     "KeyGroupListResult": {
-      "description": "Result of the request to list secrets. It contains a list of KeyGroup objects and a URL link to get the next set of results.",
+      "description": "Result of the request to list keyGroups. It contains a list of KeyGroup objects and a URL link to get the next set of results.",
       "properties": {
         "value": {
           "type": "array",
@@ -5761,7 +5691,7 @@
           "type": "string",
           "enum": [
             "Expires",
-            "KeyGroupName",
+            "KeyId",
             "Signature"
           ],
           "x-ms-enum": {
