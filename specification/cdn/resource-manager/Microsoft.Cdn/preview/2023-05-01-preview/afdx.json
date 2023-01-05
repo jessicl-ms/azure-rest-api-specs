@@ -2480,6 +2480,9 @@
         "x-ms-examples": {
           "Rules_Create": {
             "$ref": "./examples/Rules_Create.json"
+          },
+          "Rules_Create_UrlSigningAction": {
+            "$ref": "./examples/Rules_Create_UrlSigningAction.json"
           }
         },
         "parameters": [
@@ -3112,7 +3115,10 @@
         "operationId": "Secrets_Create",
         "x-ms-examples": {
           "Secrets_Create": {
-            "$ref": "./examples/Secrets_Create.json"
+            "$ref": "./examples/Secrets_CreateCustomerCertificateType.json"
+          },
+          "Secrets_CreateUrlSigningKeyType" : {
+            "$ref": "./examples/Secrets_CreateUrlSigningKeyType.json"
           }
         },
         "parameters": [
@@ -3394,6 +3400,9 @@
         "x-ms-examples": {
           "KeyGroups_Create": {
             "$ref": "./examples/KeyGroups_Create.json"
+          },
+          "KeyGroups_Update": {
+            "$ref": "./examples/KeyGroups_Update.json"
           }
         },
         "parameters": [
