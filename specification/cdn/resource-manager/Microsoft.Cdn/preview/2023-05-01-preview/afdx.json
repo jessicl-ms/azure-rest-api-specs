@@ -3447,7 +3447,7 @@
             }
           },
           "201": {
-            "description": "Created. The request has been fulfilled and a new delivery rule has been created.",
+            "description": "Created. The request has been fulfilled and a new key group has been created.",
             "schema": {
               "$ref": "#/definitions/KeyGroup"
             }
@@ -4341,13 +4341,13 @@
       }
     },
     "KeyGroup": {
-      "description": "Contains a list of names of UrlSigningKey type secret objects contained in key group.",
+      "description": "Contains a list of references of UrlSigningKey type secret objects.",
       "properties": {
         "keys": {
           "description": "Names of UrlSigningKey type secret objects",
           "type": "array",
           "items": {
-            "type": "string"
+            "type":"./cdn.json#/definitions/ResourceReference"
           }
         }
       }

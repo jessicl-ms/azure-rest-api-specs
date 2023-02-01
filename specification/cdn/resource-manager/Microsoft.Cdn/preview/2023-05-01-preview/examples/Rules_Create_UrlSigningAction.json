@@ -64,19 +64,29 @@
                 "matchValues": [
                   "GET"
                 ],
-                "negateCondition": false,
-                "transforms": []
+                "negateCondition": false
               }
             }
           ],
           "actions": [
             {
-              "name": "ModifyResponseHeader",
-              "parameters": {
-                "typeName": "DeliveryRuleHeaderActionParameters",
-                "headerAction": "Overwrite",
-                "headerName": "X-CDN",
-                "value": "MSFT"
+              "name": "UrlSigningRule",
+              "parameters": 
+              {
+                "typeName": "DeliveryRuleUrlSigningActionParameters",
+                "keyGroupName": "kg1",
+                "algorithm": "SHA256",
+                "parameterNameOverride": 
+                [
+                  {
+                  "paramIndicator": "Expires",
+                  "param": "Expiration-Date"
+                  },
+                  {
+                    "paramIndicator": "Signature",
+                    "param": "Sig-Hash"
+                  }
+                ]
               }
             }
           ],
@@ -102,19 +112,29 @@
                 "matchValues": [
                   "GET"
                 ],
-                "negateCondition": false,
-                "transforms": []
+                "negateCondition": false
               }
             }
           ],
           "actions": [
             {
-              "name": "ModifyResponseHeader",
-              "parameters": {
-                "typeName": "DeliveryRuleHeaderActionParameters",
-                "headerAction": "Overwrite",
-                "headerName": "X-CDN",
-                "value": "MSFT"
+              "name": "UrlSigningRule",
+              "parameters": 
+              {
+                "typeName": "DeliveryRuleUrlSigningActionParameters",
+                "keyGroupName": "kg1",
+                "algorithm": "SHA256",
+                "parameterNameOverride": 
+                [
+                  {
+                  "paramIndicator": "Expires",
+                  "param": "Expiration-Date"
+                  },
+                  {
+                    "paramIndicator": "Signature",
+                    "param": "Sig-Hash"
+                  }
+                ]
               }
             }
           ],
@@ -140,19 +160,29 @@
                 "matchValues": [
                   "GET"
                 ],
-                "negateCondition": false,
-                "transforms": []
+                "negateCondition": false
               }
             }
           ],
           "actions": [
             {
-              "name": "ModifyResponseHeader",
-              "parameters": {
-                "typeName": "DeliveryRuleHeaderActionParameters",
-                "headerAction": "Overwrite",
-                "headerName": "X-CDN",
-                "value": "MSFT"
+              "name": "UrlSigningRule",
+              "parameters": 
+              {
+                "typeName": "DeliveryRuleUrlSigningActionParameters",
+                "keyGroupName": "kg1",
+                "algorithm": "SHA256",
+                "parameterNameOverride": 
+                [
+                  {
+                  "paramIndicator": "Expires",
+                  "param": "Expiration-Date"
+                  },
+                  {
+                    "paramIndicator": "Signature",
+                    "param": "Sig-Hash"
+                  }
+                ]
               }
             }
           ],
