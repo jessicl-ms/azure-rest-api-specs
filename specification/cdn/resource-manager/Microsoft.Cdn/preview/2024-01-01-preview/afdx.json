@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2023-07-01-preview",
+    "version": "2024-01-01-preview",
     "title": "CdnManagementClient",
     "description": "Use these APIs to manage Azure Front Door resources through the Azure Resource Manager. You must make sure that requests made to these resources are secure."
   },
@@ -4777,6 +4777,11 @@
           "type": "object",
           "$ref": "#/definitions/AFDDomainHttpsParameters"
         },
+        "mtlsSettings": {
+          "description": "The configuration specifying how to enable mTLS for the domain",
+          "type": "object",
+          "$ref": "#/definitions/AFDDomainMTlsParameters"
+        },
         "azureDnsZone": {
           "description": "Resource reference to the Azure DNS zone",
           "type": "object",
@@ -4853,6 +4858,28 @@
         },
         "paths": {
           "description": "List of paths of the route.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AFDDomainMTlsParameters": {
+      "description": "The JSON object that contains the properties to enable mTLS for a domain.",
+      "required": [
+        "secrets"
+      ],
+      "properties": {
+        "secrets": {
+          "description": "List of 1 or 2 resource references to the Client Certificate secret. ie. subs/rg/profile/secret",
+          "type": "array",
+          "items": {
+            "$ref": "./cdn.json#/definitions/ResourceReference"
+          }
+        },
+        "allowedFQDN": {
+          "description": "List of FQDN that are allowed to be validated with this client certificate",
           "type": "array",
           "items": {
             "type": "string"
@@ -5205,7 +5232,8 @@
         "UrlSigningKey",
         "CustomerCertificate",
         "ManagedCertificate",
-        "AzureFirstPartyManagedCertificate"
+        "AzureFirstPartyManagedCertificate",
+        "mTLSCertificate"
       ],
       "type": "string",
       "x-ms-enum": {
@@ -5363,6 +5391,31 @@
           "description": "Certificate thumbprint.",
           "type": "string",
           "readOnly": true
+        }
+      }
+    },
+    "mTlsCertificateParameters": {
+      "description": "mTLS client certificate parameters",
+      "x-ms-discriminator-value": "mTlsCertificate",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/SecretParameters"
+        }
+      ],
+      "required": [
+        "secretSource",
+        "secretVersion"
+      ],
+      "properties": {
+        "secretSource": {
+          "description": "Resource reference to the Azure Key Vault secret. Expected to be in format of /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{vaultName}/secrets/{secretName}",
+          "type": "object",
+          "$ref": "./cdn.json#/definitions/ResourceReference"
+        },
+        "secretVersion": {
+          "description": "Version of the secret to be used",
+          "type": "string"
         }
       }
     },
