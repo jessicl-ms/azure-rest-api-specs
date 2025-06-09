@@ -54,9 +54,7 @@
               "linkToDefaultDomain": "Enabled",
               "httpsRedirect": "Enabled",
               "enabledState": "Enabled",
-              "grpcState": "Enabled",
-              "provisioningState": "Succeeded",
-              "deploymentStatus": "NotStarted"
+              "grpcState": "Enabled"
             },
             "currentProperties": {
               "customDomains": [
@@ -94,9 +92,7 @@
               "linkToDefaultDomain": "Enabled",
               "httpsRedirect": "Enabled",
               "enabledState": "Enabled",
-              "grpcState": "Enabled",
-              "provisioningState": "Succeeded",
-              "deploymentStatus": "NotStarted"
+              "grpcState": "Enabled"
             }
           },
           {
@@ -116,9 +112,7 @@
                 "probeProtocol": "Http",
                 "probeIntervalInSeconds": 10
               },
-              "trafficRestorationTimeToHealedOrNewEndpointsInMinutes": 5,
-              "provisioningState": "Succeeded",
-              "deploymentStatus": "NotStarted"
+              "trafficRestorationTimeToHealedOrNewEndpointsInMinutes": 5
             }
           }
         ]
