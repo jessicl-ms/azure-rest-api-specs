@@ -3716,7 +3716,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DeploymentVersion"
+            }
           },
           "202": {
             "description": "Accepted. The request has been accepted for processing and the operation will complete asynchronously.",
@@ -5649,6 +5652,26 @@
         }
       }
     },
+    "SecurityPolicyPropertiesWithEmbeddedWafPolicy": {
+      "description": "The json object that contains properties required to create a security policy",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/AFDStateProperties"
+        }
+      ],
+      "properties": {
+        "profileName": {
+          "description": "The name of the profile which holds the security policy.",
+          "type": "string",
+          "readOnly": true
+        },
+        "parameters": {
+          "description": "object which contains security policy parameters",
+          "$ref": "#/definitions/SecurityPolicyWebApplicationFirewallParametersWithEmbeddedWafPolicy"
+        }
+      }
+    },
     "SecurityPolicyUpdateParameters": {
       "description": "The JSON object containing security policy update parameters.",
       "type": "object",
@@ -5712,6 +5735,29 @@
             "$ref": "#/definitions/SecurityPolicyWebApplicationFirewallAssociation"
           },
           "x-ms-identifiers": []
+        }
+      }
+    },
+    "SecurityPolicyWebApplicationFirewallParametersWithEmbeddedWafPolicy": {
+      "description": "The json object containing security policy waf parameters",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/SecurityPolicyPropertiesParameters"
+        }
+      ],
+      "properties": {
+        "wafPolicy": {
+          "type": "object",
+          "description": "Properties of the web application firewall policy.",
+          "$ref": "./afdwebapplicationfirewalldefinition.json#/definitions/WebApplicationFirewallPolicy"
+        },
+        "associations": {
+          "description": "Waf associations",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SecurityPolicyWebApplicationFirewallAssociation"
+          }
         }
       }
     },
@@ -7002,7 +7048,7 @@
     "DeploymentVersionRuleSetChange": {
       "type": "object",
       "description": "Deployment change of the rule set under the profile",
-      "x-ms-discriminator-value": "Microsoft.Cdn/profiles/ruleSets/rules",
+      "x-ms-discriminator-value": "Microsoft.Cdn/profiles/ruleSets",
       "allOf": [
         {
           "$ref": "#/definitions/DeploymentVersionChange"
@@ -7020,7 +7066,7 @@
     "DeploymentVersionRuleChange": {
       "type": "object",
       "description": "Deployment change of the rule under the profile",
-      "x-ms-discriminator-value": "Microsoft.Cdn/profiles/ruleSets",
+      "x-ms-discriminator-value": "Microsoft.Cdn/profiles/ruleSets/rules",
       "allOf": [
         {
           "$ref": "#/definitions/DeploymentVersionChange"
@@ -7046,10 +7092,10 @@
       ],
       "properties": {
         "previousProperties": {
-          "$ref": "#/definitions/SecurityPolicyProperties"
+          "$ref": "#/definitions/SecurityPolicyPropertiesWithEmbeddedWafPolicy"
         },
         "currentProperties": {
-          "$ref": "#/definitions/SecurityPolicyProperties"
+          "$ref": "#/definitions/SecurityPolicyPropertiesWithEmbeddedWafPolicy"
         }
       }
     },
@@ -7088,25 +7134,24 @@
       "type": "object",
       "properties": {
         "preview": {
-          "$ref": "#/definitions/DeploymentStageStatus",
-          "readOnly": true,
-          "description": "Deployment status of preview stage."
-        },
-        "production": {
-          "$ref": "#/definitions/DeploymentStageStatus",
-          "readOnly": true,
-          "description": "Deployment status of production stage."
-        }
-      }
-    },
-    "DeploymentStageStatus": {
-      "type": "object",
-      "description": "The deployment status of the deployment version under the profile",
-      "properties": {
-        "rolloutStatus": {
           "type": "string",
           "readOnly": true,
-          "description": "The provisioning state of a resource.",
+          "description": "Deployment status of preview stage.",
+          "enum": [
+            "NotStarted",
+            "InProgress",
+            "Succeeded",
+            "Failed"
+          ],
+          "x-ms-enum": {
+            "name": "DeploymentRolloutStatus",
+            "modelAsString": true
+          }
+        },
+        "production": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Deployment status of production stage.",
           "enum": [
             "NotStarted",
             "InProgress",
