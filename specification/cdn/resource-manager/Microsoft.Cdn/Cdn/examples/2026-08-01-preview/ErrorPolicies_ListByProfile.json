@@ -1,0 +1,57 @@
+{
+  "parameters": {
+    "api-version": "2026-08-01-preview",
+    "profileName": "profile1",
+    "resourceGroupName": "RG",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "errorPolicy1",
+            "type": "Microsoft.Cdn/profiles/errorpolicies",
+            "id": "/subscriptions/subid/resourcegroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorpolicies/errorPolicy1",
+            "properties": {
+              "customErrorPage": {
+                "enabledState": "Enabled",
+                "originGroup": {
+                  "id": "/subscriptions/subid/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/originGroups/errorPageOriginGroup"
+                },
+                "overrideStatusCode": 200,
+                "path": "/errors/default.html",
+                "sourceType": "Origin"
+              },
+              "deploymentStatus": "NotStarted",
+              "description": "Reusable negative caching and origin-based custom error page behavior",
+              "negativeCaching": {
+                "cacheTtlInSeconds": 30,
+                "enabledState": "Enabled"
+              },
+              "profileName": "profile1",
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "name": "errorPolicy2",
+            "type": "Microsoft.Cdn/profiles/errorpolicies",
+            "id": "/subscriptions/subid/resourcegroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorpolicies/errorPolicy2",
+            "properties": {
+              "deploymentStatus": "NotStarted",
+              "description": "Reusable negative caching behavior",
+              "negativeCaching": {
+                "cacheTtlInSeconds": 86400,
+                "enabledState": "Enabled"
+              },
+              "profileName": "profile1",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "ErrorPolicies_ListByProfile",
+  "title": "ErrorPolicies_ListByProfile"
+}
