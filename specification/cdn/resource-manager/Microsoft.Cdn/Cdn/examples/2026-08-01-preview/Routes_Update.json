@@ -24,6 +24,7 @@
         ],
         "enabledState": "Enabled",
         "forwardingProtocol": "MatchRequest",
+        "grpcState": "Enabled",
         "httpsRedirect": "Enabled",
         "linkToDefaultDomain": "Enabled",
         "originGroup": {
@@ -72,6 +73,7 @@
           "deploymentStatus": "NotStarted",
           "enabledState": "Enabled",
           "forwardingProtocol": "MatchRequest",
+          "grpcState": "Enabled",
           "httpsRedirect": "Enabled",
           "linkToDefaultDomain": "Enabled",
           "originGroup": {
@@ -119,6 +121,7 @@
           "deploymentStatus": "NotStarted",
           "enabledState": "Enabled",
           "forwardingProtocol": "MatchRequest",
+          "grpcState": "Enabled",
           "httpsRedirect": "Enabled",
           "linkToDefaultDomain": "Enabled",
           "originGroup": {
