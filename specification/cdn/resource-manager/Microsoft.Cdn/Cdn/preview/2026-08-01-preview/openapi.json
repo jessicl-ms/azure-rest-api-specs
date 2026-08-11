@@ -73,6 +73,9 @@
       "name": "AuthPolicies"
     },
     {
+      "name": "ErrorPolicies"
+    },
+    {
       "name": "Secrets"
     },
     {
@@ -5293,6 +5296,347 @@
             "$ref": "./examples/Endpoints_ValidateCustomDomain.json"
           }
         }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/errorPolicies": {
+      "get": {
+        "operationId": "ErrorPolicies_ListByProfile",
+        "tags": [
+          "ErrorPolicies"
+        ],
+        "description": "Lists error policies associated with the profile.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "profileName",
+            "in": "path",
+            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the resource group.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicyListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/errorPolicies/{errorPolicyName}": {
+      "get": {
+        "operationId": "ErrorPolicies_Get",
+        "tags": [
+          "ErrorPolicies"
+        ],
+        "description": "Gets an existing error policy within a profile.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "profileName",
+            "in": "path",
+            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the resource group.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "errorPolicyName",
+            "in": "path",
+            "description": "Name of the error policy under the profile.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicy"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ErrorPolicies_Create",
+        "tags": [
+          "ErrorPolicies"
+        ],
+        "description": "Creates or updates an error policy within the specified profile.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "profileName",
+            "in": "path",
+            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the resource group.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "errorPolicyName",
+            "in": "path",
+            "description": "Name of the error policy under the profile.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "The error policy properties.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ErrorPolicy' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicy"
+            }
+          },
+          "201": {
+            "description": "Resource 'ErrorPolicy' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicy"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/ErrorPolicy"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ErrorPolicies_Update",
+        "tags": [
+          "ErrorPolicies"
+        ],
+        "description": "Updates an existing error policy within a profile.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "profileName",
+            "in": "path",
+            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the resource group.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "errorPolicyName",
+            "in": "path",
+            "description": "Name of the error policy under the profile.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Error policy update properties.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicyUpdateParameters"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorPolicy"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/ErrorPolicy"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ErrorPolicies_Delete",
+        "tags": [
+          "ErrorPolicies"
+        ],
+        "description": "Deletes an existing error policy within a profile.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "profileName",
+            "in": "path",
+            "description": "Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the resource group.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          },
+          {
+            "name": "errorPolicyName",
+            "in": "path",
+            "description": "Name of the error policy under the profile.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "pattern": "^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/generateSsoUri": {
@@ -13115,6 +13459,115 @@
         ]
       }
     },
+    "ErrorPolicy": {
+      "type": "object",
+      "description": "A reusable error policy that defines how Azure Front Door handles error responses. Routes select\nthe error status codes that trigger a policy, so a single policy can be shared across routes.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ErrorPolicyProperties",
+          "description": "Properties required to create an error policy."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ErrorPolicyAssociation": {
+      "type": "object",
+      "description": "Association from a route to an error policy, together with the HTTP status codes that trigger the\npolicy on that route. The status codes are a per-route decision, so they live on the route's\nassociation rather than on the reusable error policy.",
+      "properties": {
+        "errorPolicyReference": {
+          "$ref": "#/definitions/ResourceReference",
+          "description": "Reference to an error policy in the same profile that handles the listed response codes."
+        },
+        "errorResponseCodes": {
+          "type": "array",
+          "description": "HTTP error status codes on this route that trigger the referenced policy, for example 404 or\n500. Codes must be unique within an association, and a given code may be mapped by at most one\nassociation on the route.",
+          "minItems": 1,
+          "maxItems": 38,
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "required": [
+        "errorPolicyReference",
+        "errorResponseCodes"
+      ]
+    },
+    "ErrorPolicyListResult": {
+      "type": "object",
+      "description": "The response of a ErrorPolicy list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ErrorPolicy items on this page",
+          "items": {
+            "$ref": "#/definitions/ErrorPolicy"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ErrorPolicyProperties": {
+      "type": "object",
+      "description": "Properties of the error policy.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the error policy.",
+          "maxLength": 150
+        },
+        "negativeCachingConfiguration": {
+          "$ref": "#/definitions/NegativeCachingConfiguration",
+          "description": "Negative caching settings applied to the error responses a route maps to this policy. Negative\ncaching is the only behavior an error policy configures, so this object is required."
+        }
+      },
+      "required": [
+        "negativeCachingConfiguration"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AFDStateProperties"
+        }
+      ]
+    },
+    "ErrorPolicyUpdateParameters": {
+      "type": "object",
+      "description": "Parameters for updating an error policy.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ErrorPolicyUpdatePropertiesParameters",
+          "description": "Properties to update on the error policy.",
+          "x-ms-client-flatten": true
+        }
+      }
+    },
+    "ErrorPolicyUpdatePropertiesParameters": {
+      "type": "object",
+      "description": "Writable properties of an error policy.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the error policy.",
+          "maxLength": 150
+        },
+        "negativeCachingConfiguration": {
+          "$ref": "#/definitions/NegativeCachingConfiguration",
+          "description": "Negative caching settings applied to the error responses a route maps to this policy. Optional\non a PATCH: omitting it leaves the stored configuration unchanged."
+        }
+      }
+    },
     "ForwardingProtocol": {
       "type": "string",
       "description": "Protocol this rule will use when forwarding traffic to backends.",
@@ -14498,6 +14951,56 @@
           }
         ]
       }
+    },
+    "NegativeCacheBehavior": {
+      "type": "string",
+      "description": "How the edge caches an error response that matches a route's error codes.",
+      "enum": [
+        "HonorOrigin",
+        "Override",
+        "SetIfMissing"
+      ],
+      "x-ms-enum": {
+        "name": "NegativeCacheBehavior",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "HonorOrigin",
+            "value": "HonorOrigin",
+            "description": "Cache the error response using the caching headers returned by the origin. The policy supplies\nno TTL, so cacheTtlInSeconds must be omitted."
+          },
+          {
+            "name": "Override",
+            "value": "Override",
+            "description": "Always cache the error response for the policy's TTL, ignoring the origin's caching headers."
+          },
+          {
+            "name": "SetIfMissing",
+            "value": "SetIfMissing",
+            "description": "Cache the error response for the policy's TTL only when the origin returned no caching headers\nof its own."
+          }
+        ]
+      }
+    },
+    "NegativeCachingConfiguration": {
+      "type": "object",
+      "description": "Negative caching settings applied to the error responses a route maps to an error policy.",
+      "properties": {
+        "cacheBehavior": {
+          "$ref": "#/definitions/NegativeCacheBehavior",
+          "description": "How the edge caches an error response that matches the route's error codes."
+        },
+        "cacheTtlInSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Duration, in seconds, that a negative-cached error response is retained at the edge. Must be\nomitted when cacheBehavior is HonorOrigin, and is required for every other behavior. The\nmaximum of 604800 seconds is one week.",
+          "minimum": 1,
+          "maximum": 604800
+        }
+      },
+      "required": [
+        "cacheBehavior"
+      ]
     },
     "Operation": {
       "type": "object",
@@ -17102,6 +17605,15 @@
           "$ref": "#/definitions/AFDRouteGrpcState",
           "description": "Whether or not gRPC is enabled on this route. Permitted values are 'Enabled' or 'Disabled'"
         },
+        "errorPolicies": {
+          "type": "array",
+          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation.",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/definitions/ErrorPolicyAssociation"
+          },
+          "x-ms-identifiers": []
+        },
         "provisioningState": {
           "$ref": "#/definitions/AfdProvisioningState",
           "description": "Provisioning status",
@@ -17258,6 +17770,15 @@
         "grpcState": {
           "$ref": "#/definitions/AFDRouteGrpcState",
           "description": "Whether or not gRPC is enabled on this route. Permitted values are 'Enabled' or 'Disabled'"
+        },
+        "errorPolicies": {
+          "type": "array",
+          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation.",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/definitions/ErrorPolicyAssociation"
+          },
+          "x-ms-identifiers": []
         }
       }
     },
