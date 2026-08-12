@@ -3531,10 +3531,11 @@ model ErrorPolicyProperties extends AFDStateProperties {
   description?: string;
 
   /**
-   * Negative caching settings applied to the error responses a route maps to this policy. Negative
-   * caching is the only behavior an error policy configures, so this object is required.
+   * Negative caching settings applied to the error responses a route maps to this policy. Optional:
+   * a policy that omits it stays attached to its routes but applies no caching decision, which is
+   * how a policy is disabled in place without editing every route that references it.
    */
-  negativeCachingConfiguration: NegativeCachingConfiguration;
+  negativeCachingConfiguration?: NegativeCachingConfiguration;
 }
 
 /**

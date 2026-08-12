@@ -13530,12 +13530,9 @@
         },
         "negativeCachingConfiguration": {
           "$ref": "#/definitions/NegativeCachingConfiguration",
-          "description": "Negative caching settings applied to the error responses a route maps to this policy. Negative\ncaching is the only behavior an error policy configures, so this object is required."
+          "description": "Negative caching settings applied to the error responses a route maps to this policy. Optional:\na policy that omits it stays attached to its routes but applies no caching decision, which is\nhow a policy is disabled in place without editing every route that references it."
         }
       },
-      "required": [
-        "negativeCachingConfiguration"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/AFDStateProperties"
