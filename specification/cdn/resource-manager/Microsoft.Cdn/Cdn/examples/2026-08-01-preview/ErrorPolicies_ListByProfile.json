@@ -1,0 +1,46 @@
+{
+  "parameters": {
+    "api-version": "2026-08-01-preview",
+    "profileName": "profile1",
+    "resourceGroupName": "RG",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorPolicies/errorPolicy1",
+            "name": "errorPolicy1",
+            "properties": {
+              "deploymentStatus": "NotStarted",
+              "description": "Negative caching for 5xx responses",
+              "negativeCachingConfiguration": {
+                "cacheBehavior": "Override",
+                "cacheTtlInSeconds": 30
+              },
+              "provisioningState": "Succeeded"
+            },
+            "type": "Microsoft.Cdn/profiles/errorPolicies"
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorPolicies/errorPolicy2",
+            "name": "errorPolicy2",
+            "properties": {
+              "deploymentStatus": "NotStarted",
+              "description": "Negative caching for 4xx responses",
+              "negativeCachingConfiguration": {
+                "cacheBehavior": "SetIfMissing",
+                "cacheTtlInSeconds": 60
+              },
+              "provisioningState": "Succeeded"
+            },
+            "type": "Microsoft.Cdn/profiles/errorPolicies"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "ErrorPolicies_ListByProfile",
+  "title": "ErrorPolicies_ListByProfile"
+}

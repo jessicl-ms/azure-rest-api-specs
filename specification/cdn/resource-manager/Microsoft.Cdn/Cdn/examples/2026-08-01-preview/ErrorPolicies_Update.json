@@ -1,0 +1,43 @@
+{
+  "parameters": {
+    "api-version": "2026-08-01-preview",
+    "errorPolicyName": "errorPolicy1",
+    "profileName": "profile1",
+    "properties": {
+      "properties": {
+        "description": "Negative caching for 5xx responses, honoring origin headers",
+        "negativeCachingConfiguration": {
+          "cacheBehavior": "HonorOrigin"
+        }
+      }
+    },
+    "resourceGroupName": "RG",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorPolicies/errorPolicy1",
+        "name": "errorPolicy1",
+        "properties": {
+          "deploymentStatus": "NotStarted",
+          "description": "Negative caching for 5xx responses, honoring origin headers",
+          "negativeCachingConfiguration": {
+            "cacheBehavior": "HonorOrigin"
+          },
+          "provisioningState": "Succeeded"
+        },
+        "type": "Microsoft.Cdn/profiles/errorPolicies"
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/RG/providers/Microsoft.Cdn/operationResults/operationId?api-version=2026-08-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/RG/providers/Microsoft.Cdn/operationResults/operationId?api-version=2026-08-01-preview",
+        "Retry-After": 30
+      }
+    }
+  },
+  "operationId": "ErrorPolicies_Update",
+  "title": "ErrorPolicies_Update"
+}

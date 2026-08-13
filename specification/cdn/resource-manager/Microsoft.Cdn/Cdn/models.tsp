@@ -3308,6 +3308,17 @@ model RouteUpdatePropertiesParameters {
   @removed(Versions.v2025_12_01)
   @added(Versions.v2026_08_01_preview)
   grpcState?: AFDRouteGrpcState;
+
+  /**
+   * Error policies applied by this route, each mapping a set of HTTP error status codes to a
+   * reusable error policy in the same profile. A given status code may be mapped by at most one
+   * association, and a given policy may be referenced by at most one association, so the limit
+   * matches the maximum number of error policies a profile can hold.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @identifiers(#[])
+  @maxItems(20)
+  errorPolicies?: ErrorPolicyAssociation[];
 }
 
 /**
@@ -3505,6 +3516,125 @@ union AuthPolicyAction {
    * Log the authorization failure and allow the request to continue.
    */
   Log: "Log",
+}
+
+/**
+ * Properties of the error policy.
+ */
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "The service contract composes writable error policy properties with Azure Front Door state properties."
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "The existing Azure Front Door state model defines the service's provisioning state contract."
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyProperties extends AFDStateProperties {
+  /**
+   * Description of the error policy.
+   */
+  @maxLength(150)
+  description?: string;
+
+  /**
+   * Negative caching settings applied to the error responses a route maps to this policy. Optional:
+   * a policy that omits it stays attached to its routes but applies no caching decision, which is
+   * how a policy is disabled in place without editing every route that references it.
+   */
+  negativeCachingConfiguration?: NegativeCachingConfiguration;
+}
+
+/**
+ * Parameters for updating an error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyUpdateParameters {
+  /**
+   * Properties to update on the error policy.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "The existing Swagger contract flattens the properties payload for SDK compatibility."
+  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  properties?: ErrorPolicyUpdatePropertiesParameters;
+}
+
+/**
+ * Writable properties of an error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyUpdatePropertiesParameters {
+  /**
+   * Description of the error policy.
+   */
+  @maxLength(150)
+  description?: string;
+
+  /**
+   * Negative caching settings applied to the error responses a route maps to this policy. Optional
+   * on a PATCH: omitting it leaves the stored configuration unchanged.
+   */
+  negativeCachingConfiguration?: NegativeCachingConfiguration;
+}
+
+/**
+ * Negative caching settings applied to the error responses a route maps to an error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+model NegativeCachingConfiguration {
+  /**
+   * How the edge caches an error response that matches the route's error codes.
+   */
+  cacheBehavior: NegativeCacheBehavior;
+
+  /**
+   * Duration, in seconds, that a negative-cached error response is retained at the edge. Must be
+   * omitted when cacheBehavior is HonorOrigin, and is required for every other behavior. The
+   * maximum of 604800 seconds is one week.
+   */
+  @minValue(1)
+  @maxValue(604800)
+  cacheTtlInSeconds?: int32;
+}
+
+/**
+ * How the edge caches an error response that matches a route's error codes.
+ */
+@added(Versions.v2026_08_01_preview)
+union NegativeCacheBehavior {
+  string,
+
+  /**
+   * Cache the error response using the caching headers returned by the origin. The policy supplies
+   * no TTL, so cacheTtlInSeconds must be omitted.
+   */
+  HonorOrigin: "HonorOrigin",
+
+  /**
+   * Always cache the error response for the policy's TTL, ignoring the origin's caching headers.
+   */
+  Override: "Override",
+
+  /**
+   * Cache the error response for the policy's TTL only when the origin returned no caching headers
+   * of its own.
+   */
+  SetIfMissing: "SetIfMissing",
+}
+
+/**
+ * Association from a route to an error policy, together with the HTTP status codes that trigger the
+ * policy on that route. The status codes are a per-route decision, so they live on the route's
+ * association rather than on the reusable error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyAssociation {
+  /**
+   * Reference to an error policy in the same profile that handles the listed response codes.
+   */
+  errorPolicyReference: ResourceReference;
+
+  /**
+   * HTTP error status codes on this route that trigger the referenced policy, for example 404 or
+   * 500. Codes must be unique within an association, and a given code may be mapped by at most one
+   * association on the route.
+   */
+  @minItems(1)
+  @maxItems(38)
+  errorResponseCodes: int32[];
 }
 
 /**
