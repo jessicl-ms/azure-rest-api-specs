@@ -5340,6 +5340,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ErrorPolicies_ListByProfile": {
+            "$ref": "./examples/ErrorPolicies_ListByProfile.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -5395,6 +5400,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ErrorPolicies_Get": {
+            "$ref": "./examples/ErrorPolicies_Get.json"
           }
         }
       },
@@ -5473,6 +5483,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ErrorPolicies_Create": {
+            "$ref": "./examples/ErrorPolicies_Create.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -5560,6 +5575,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ErrorPolicies_Update": {
+            "$ref": "./examples/ErrorPolicies_Update.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation",
           "final-state-schema": "#/definitions/ErrorPolicy"
@@ -5631,6 +5651,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ErrorPolicies_Delete": {
+            "$ref": "./examples/ErrorPolicies_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
