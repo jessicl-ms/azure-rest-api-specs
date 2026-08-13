@@ -1835,6 +1835,9 @@
         "x-ms-examples": {
           "Routes_Create": {
             "$ref": "./examples/Routes_Create.json"
+          },
+          "Routes_Create_WithErrorPolicies": {
+            "$ref": "./examples/Routes_Create_WithErrorPolicies.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1931,6 +1934,9 @@
         "x-ms-examples": {
           "Routes_Update": {
             "$ref": "./examples/Routes_Update.json"
+          },
+          "Routes_Update_WithErrorPolicies": {
+            "$ref": "./examples/Routes_Update_WithErrorPolicies.json"
           }
         },
         "x-ms-long-running-operation-options": {
