@@ -17629,8 +17629,8 @@
         },
         "errorPolicies": {
           "type": "array",
-          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation.",
-          "maxItems": 100,
+          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation, and a given policy may be referenced by at most one association, so the limit\nmatches the maximum number of error policies a profile can hold.",
+          "maxItems": 20,
           "items": {
             "$ref": "#/definitions/ErrorPolicyAssociation"
           },
@@ -17795,8 +17795,8 @@
         },
         "errorPolicies": {
           "type": "array",
-          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation.",
-          "maxItems": 100,
+          "description": "Error policies applied by this route, each mapping a set of HTTP error status codes to a\nreusable error policy in the same profile. A given status code may be mapped by at most one\nassociation, and a given policy may be referenced by at most one association, so the limit\nmatches the maximum number of error policies a profile can hold.",
+          "maxItems": 20,
           "items": {
             "$ref": "#/definitions/ErrorPolicyAssociation"
           },

@@ -3312,11 +3312,12 @@ model RouteUpdatePropertiesParameters {
   /**
    * Error policies applied by this route, each mapping a set of HTTP error status codes to a
    * reusable error policy in the same profile. A given status code may be mapped by at most one
-   * association.
+   * association, and a given policy may be referenced by at most one association, so the limit
+   * matches the maximum number of error policies a profile can hold.
    */
   @added(Versions.v2026_08_01_preview)
   @identifiers(#[])
-  @maxItems(100)
+  @maxItems(20)
   errorPolicies?: ErrorPolicyAssociation[];
 }
 
