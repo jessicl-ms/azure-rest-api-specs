@@ -32,6 +32,27 @@
           ],
           "deploymentStatus": "NotStarted",
           "enabledState": "Enabled",
+          "errorPolicies": [
+            {
+              "errorPolicyReference": {
+                "id": "/subscriptions/subid/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorPolicies/notFoundPolicy"
+              },
+              "errorResponseCodes": [
+                404,
+                410
+              ]
+            },
+            {
+              "errorPolicyReference": {
+                "id": "/subscriptions/subid/resourceGroups/RG/providers/Microsoft.Cdn/profiles/profile1/errorPolicies/serverErrorPolicy"
+              },
+              "errorResponseCodes": [
+                500,
+                502,
+                503
+              ]
+            }
+          ],
           "forwardingProtocol": "MatchRequest",
           "grpcState": "Enabled",
           "httpsRedirect": "Enabled",
