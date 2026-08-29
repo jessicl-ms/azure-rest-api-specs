@@ -3305,6 +3305,175 @@ model RouteUpdatePropertiesParameters {
   @added(Versions.v2025_09_01_preview)
   @removed(Versions.v2025_12_01)
   grpcState?: AFDRouteGrpcState;
+
+  /**
+   * The error policies referenced by this route, along with the error codes each policy handles. Error codes must not overlap across entries so every error code has a single deterministic policy owner on the route.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @identifiers(#["id"])
+  errorPolicyReferences?: ErrorPolicyReference[];
+}
+
+/**
+ * Reference to an error policy along with the error codes that trigger it on a route.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyReference {
+  /**
+   * Resource ID of the error policy. The error policy must belong to the same profile as the route.
+   */
+  id?: string;
+
+  /**
+   * The HTTP error status codes handled by the referenced error policy for this route. At least one error code must be provided.
+   */
+  @minItems(1)
+  errorCodes: int32[];
+}
+
+/**
+ * The JSON object that contains the properties of the error policy.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Consistent with the other Azure Front Door child resources in this specification."
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyProperties {
+  ...ErrorPolicyUpdatePropertiesParameters;
+  ...AFDStateProperties;
+}
+
+/**
+ * The JSON object that contains the updatable properties of the error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyUpdatePropertiesParameters {
+  /**
+   * The name of the profile which holds the error policy.
+   */
+  @visibility(Lifecycle.Read)
+  profileName?: string;
+
+  /**
+   * A customer provided description of the error policy.
+   */
+  description?: string;
+
+  /**
+   * The negative caching behavior applied when a route maps an error code to this policy. Negative caching can only be used by routes that have caching enabled.
+   */
+  negativeCaching?: ErrorPolicyNegativeCaching;
+
+  /**
+   * The custom error page behavior applied when a route maps an error code to this policy.
+   */
+  customErrorPage?: ErrorPolicyCustomErrorPage;
+}
+
+/**
+ * Negative caching settings of an error policy. When enabled, error responses are cached at the edge to reduce repeated origin calls.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyNegativeCaching {
+  /**
+   * Whether negative caching is enabled for this error policy. Permitted values are 'Enabled' or 'Disabled'.
+   */
+  enabledState?: EnabledState;
+
+  /**
+   * The duration, in seconds, that an error response is cached at the edge. Required when enabledState is 'Enabled', and must be between 0 seconds and one week.
+   */
+  @minValue(0)
+  @maxValue(604800)
+  cacheTtlInSeconds?: int32;
+}
+
+/**
+ * Custom error page settings of an error policy. Exactly one source mode, 'Origin' or 'Upload', can be configured.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyCustomErrorPage {
+  /**
+   * Whether the custom error page is enabled for this error policy. Permitted values are 'Enabled' or 'Disabled'.
+   */
+  enabledState?: EnabledState;
+
+  /**
+   * The source of the custom error page. Required when enabledState is 'Enabled'. 'Origin' requires originGroup and path, 'Upload' requires uploadedFile.
+   */
+  sourceType?: ErrorPolicyCustomErrorPageSourceType;
+
+  /**
+   * A reference to the origin group that hosts the custom error page. Only applicable when sourceType is 'Origin'. The origin group must belong to the same profile as the error policy, and the page is always fetched over HTTPS.
+   */
+  originGroup?: ResourceReference;
+
+  /**
+   * The path on the origin used to retrieve the custom error page, e.g. /errors/default.html. Only applicable when sourceType is 'Origin'.
+   */
+  path?: string;
+
+  /**
+   * The HTML document served as the custom error page. Only applicable when sourceType is 'Upload'.
+   */
+  uploadedFile?: ErrorPolicyUploadedFile;
+
+  /**
+   * The HTTP status code returned to the client instead of the original error status code when the custom error page is served.
+   */
+  @minValue(100)
+  @maxValue(599)
+  overrideStatusCode?: int32;
+}
+
+/**
+ * The HTML document uploaded for use as a custom error page.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyUploadedFile {
+  /**
+   * The original name of the uploaded file. The name must have a .html or .htm extension and must not contain any path components.
+   */
+  fileName: string;
+
+  /**
+   * The media type of the uploaded file. Only 'text/html' is supported in this API version.
+   */
+  contentType: string;
+
+  /**
+   * The raw UTF-8 HTML content of the uploaded file. The content must not exceed 64 KB.
+   */
+  content: string;
+}
+
+/**
+ * The source of the custom error page served by an error policy.
+ */
+@added(Versions.v2026_08_01_preview)
+union ErrorPolicyCustomErrorPageSourceType {
+  string,
+
+  /**
+   * The custom error page is fetched from an origin group over HTTPS.
+   */
+  Origin: "Origin",
+
+  /**
+   * The custom error page is served from HTML content uploaded with the error policy.
+   */
+  Upload: "Upload",
+}
+
+/**
+ * The error policy JSON object required for error policy creation or update.
+ */
+@added(Versions.v2026_08_01_preview)
+model ErrorPolicyUpdateParameters {
+  /**
+   * The JSON object that contains the updatable properties of the error policy.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Consistent with the other Azure Front Door child resources in this specification."
+  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  properties?: ErrorPolicyUpdatePropertiesParameters;
 }
 
 /**
